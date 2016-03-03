@@ -1,17 +1,8 @@
-
 /**
  * Module dependencies.
  */
 
 var dns = require('dns');
-
-/**
- * Module exports.
- */
-
-module.exports = isResolvable;
-
-isResolvable.async = true;
 
 /**
  * Tries to resolve the hostname. Returns true if succeeds.
@@ -20,9 +11,20 @@ isResolvable.async = true;
  * @return {Boolean}
  */
 
-function isResolvable (host, fn) {
-  var family = 4;
-  dns.lookup(host, family, function (err, ip) {
-    fn(null, !err);
-  });
+function isResolvable(host) {
+    'use strict';
+    var family = 4;
+    return new Promise(function (resolve) {
+        dns.lookup(host, family, function (err) {
+            resolve(!err);
+        });
+    });
 }
+
+isResolvable.async = true;
+
+/**
+ * Module exports.
+ */
+
+module.exports = isResolvable;

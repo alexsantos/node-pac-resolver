@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = weekdayRange;
-
 /**
  * Only the first parameter is mandatory. Either the second, the third, or both
  * may be left out.
@@ -41,14 +34,21 @@ module.exports = weekdayRange;
  * true Friday through Monday (note, order does matter!).
  * ```
  *
- * 
+ *
  * @param {String} wd1 one of the weekday strings.
  * @param {String} wd2 one of the weekday strings.
  * @param {String} gmt is either the string: GMT or is left out.
  * @return {Boolean}
  */
 
-function weekdayRange (wd1, wd2, gmt) {
-  // TODO: implement me!
-  return false;
+function weekdayRange(wd1, wd2, gmt) {
+    'use strict';
+    // TODO: implement me!
+    return false;
 }
+
+/**
+ * Module exports.
+ */
+
+module.exports = weekdayRange;

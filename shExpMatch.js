@@ -1,9 +1,16 @@
-
 /**
- * Module exports.
+ * Converts a "shell expression" to a JavaScript RegExp.
+ *
+ * @api private
  */
 
-module.exports = shExpMatch;
+function toRegExp(str) {
+    'use strict';
+    str = String(str)
+        .replace(/\?/g, '.')
+        .replace(/\*/g, '(.*)');
+    return new RegExp('^' + str + '$');
+}
 
 /**
  * Returns true if the string matches the specified shell
@@ -27,20 +34,14 @@ module.exports = shExpMatch;
  * @return {Boolean} true if the string matches the shell expression.
  */
 
-function shExpMatch (str, shexp) {
-  var re = toRegExp(shexp);
-  return re.test(str);
+function shExpMatch(str, shexp) {
+    'use strict';
+    var re = toRegExp(shexp);
+    return re.test(str);
 }
 
 /**
- * Converts a "shell expression" to a JavaScript RegExp.
- *
- * @api private
+ * Module exports.
  */
 
-function toRegExp (str) {
-  str = String(str)
-    .replace(/\?/g, '.')
-    .replace(/\*/g, '(.*)');
-  return new RegExp('^' + str + '$');
-}
+module.exports = shExpMatch;

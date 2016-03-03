@@ -1,17 +1,8 @@
-
 /**
  * Module dependencies.
  */
 
 var net = require('net');
-
-/**
- * Module exports.
- */
-
-module.exports = myIpAddress;
-
-myIpAddress.async = true;
 
 /**
  * Returns the IP address of the host that the Navigator is running on, as
@@ -28,15 +19,29 @@ myIpAddress.async = true;
  * @return {String} external IP address
  */
 
-function myIpAddress (fn) {
-  // 8.8.8.8:53 is "Google Public DNS":
-  // https://developers.google.com/speed/public-dns/
-  var socket = net.connect({ host: '8.8.8.8', port: 53 });
-  socket.once('error', fn);
-  socket.once('connect', function () {
-    socket.removeListener('error', fn);
-    var ip = socket.address().address;
-    socket.destroy();
-    fn(null, ip);
-  });
+function myIpAddress() {
+    'use strict';
+    // 8.8.8.8:53 is "Google Public DNS":
+    // https://developers.google.com/speed/public-dns/
+    var socket = net.connect({
+        host: '8.8.8.8',
+        port: 53
+    });
+    return new Promise(function (resolve, reject) {
+        socket.once('error', reject);
+        socket.once('connect', function () {
+            socket.removeListener('error', reject);
+            var ip = socket.address().address;
+            socket.destroy();
+            resolve(ip);
+        });
+    });
 }
+
+myIpAddress.async = true;
+
+/**
+ * Module exports.
+ */
+
+module.exports = myIpAddress;

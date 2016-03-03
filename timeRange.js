@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = timeRange;
-
 /**
  * True during (or between) the specified time(s).
  *
@@ -47,7 +40,14 @@ module.exports = timeRange;
  * @return {Boolean}
  */
 
-function timeRange (wd1, wd2, gmt) {
-  // TODO: implement me!
-  return false;
+function timeRange(wd1, wd2, gmt) {
+    'use strict';
+    // TODO: implement me!
+    return false;
 }
+
+/**
+ * Module exports.
+ */
+
+module.exports = timeRange;
