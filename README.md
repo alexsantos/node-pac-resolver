@@ -42,11 +42,8 @@ var pac = require('pac-resolver');
 
 var FindProxyForURL = pac(fs.readFileSync('proxy.pac', 'utf8'));
 
-FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
-  if (err) throw err;
-  console.log(res);
+FindProxyForURL('http://foo.com/', 'foo.com').then(console.log);
     // → "DIRECT"
-});
 ```
 
 
