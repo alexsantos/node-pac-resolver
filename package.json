@@ -4,14 +4,14 @@
   "description": "Generates an asynchronous resolver function from a PAC file",
   "main": "index.js",
   "dependencies": {
-    "co": "~3.0.6",
-    "netmask": "~1.0.4",
-    "degenerator": "~1.0.0",
-    "regenerator": "~0.8.13",
-    "thunkify": "~2.1.1"
+    "co": "~4.6.0",
+    "netmask": "~1.0.5",
+    "degenerator": "~1.0.2"
   },
   "devDependencies": {
-    "mocha": "2"
+    "mocha": "~2.4.5",
+    "chai": "~3.5.0",
+    "chai-as-promised": "~5.2.0"
   },
   "scripts": {
     "test": "mocha --reporter spec"
