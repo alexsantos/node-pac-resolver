@@ -1,5 +1,2 @@
-/node_modules
-
-# ignore local dev files
-/automattic.js
-/?.js
+node_modules
+.nyc_output

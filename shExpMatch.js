@@ -5,11 +5,11 @@
  */
 
 function toRegExp(str) {
-    'use strict';
-    str = String(str)
-        .replace(/\?/g, '.')
-        .replace(/\*/g, '(.*)');
-    return new RegExp('^' + str + '$');
+	'use strict';
+	str = String(str)
+		.replace(/\?/g, '.')
+		.replace(/\*/g, '(.*)');
+	return new RegExp(`^${str}$`);
 }
 
 /**
@@ -35,9 +35,8 @@ function toRegExp(str) {
  */
 
 function shExpMatch(str, shexp) {
-    'use strict';
-    var re = toRegExp(shexp);
-    return re.test(str);
+	'use strict';
+	return toRegExp(shexp).test(str);
 }
 
 /**

@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var net = require('net');
+const net = require('net');
 
 /**
  * Returns the IP address of the host that the Navigator is running on, as
@@ -20,22 +20,22 @@ var net = require('net');
  */
 
 function myIpAddress() {
-    'use strict';
-    // 8.8.8.8:53 is "Google Public DNS":
-    // https://developers.google.com/speed/public-dns/
-    var socket = net.connect({
-        host: '8.8.8.8',
-        port: 53
-    });
-    return new Promise(function (resolve, reject) {
-        socket.once('error', reject);
-        socket.once('connect', function () {
-            socket.removeListener('error', reject);
-            var ip = socket.address().address;
-            socket.destroy();
-            resolve(ip);
-        });
-    });
+	'use strict';
+	// 8.8.8.8:53 is "Google Public DNS":
+	// https://developers.google.com/speed/public-dns/
+	const socket = net.connect({
+		host: '192.168.1.2',
+		port: 53
+	});
+	return new Promise((resolve, reject) => {
+		socket.once('error', reject);
+		socket.once('connect', () => {
+			socket.removeListener('error', reject);
+			const ip = socket.address().address;
+			socket.destroy();
+			resolve(ip);
+		});
+	});
 }
 
 myIpAddress.async = true;

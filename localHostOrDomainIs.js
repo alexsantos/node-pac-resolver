@@ -24,12 +24,10 @@
  */
 
 function localHostOrDomainIs(host, hostdom) {
-    'use strict';
-    var parts = String(host).split('.');
-    var domparts = String(hostdom).split('.');
-    return !parts.some(function (part, idx) {
-        return part !== domparts[idx];
-    });
+	'use strict';
+	const parts = String(host).split('.');
+	const domparts = String(hostdom).split('.');
+	return !parts.some((part, idx) => part !== domparts[idx]);
 }
 
 /**

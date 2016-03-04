@@ -41,9 +41,9 @@
  */
 
 function timeRange(wd1, wd2, gmt) {
-    'use strict';
-    // TODO: implement me!
-    return false;
+	'use strict';
+	// TODO: implement me!
+	return false;
 }
 
 /**

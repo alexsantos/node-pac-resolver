@@ -21,10 +21,10 @@
  */
 
 function dnsDomainIs(host, domain) {
-    'use strict';
-    host = String(host);
-    domain = String(domain);
-    return host.substr(domain.length * -1) === domain;
+	'use strict';
+	host = String(host);
+	domain = String(domain);
+	return host.substr(domain.length * -1) === domain;
 }
 
 /**

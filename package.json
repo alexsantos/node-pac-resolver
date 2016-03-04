@@ -1,35 +1,45 @@
 {
-  "name": "pac-resolver",
-  "version": "1.2.6",
-  "description": "Generates an asynchronous resolver function from a PAC file",
-  "main": "index.js",
-  "dependencies": {
-    "co": "~4.6.0",
-    "netmask": "~1.0.5",
-    "degenerator": "~1.0.2"
-  },
-  "devDependencies": {
-    "mocha": "~2.4.5",
-    "chai": "~3.5.0",
-    "chai-as-promised": "~5.2.0"
-  },
-  "scripts": {
-    "test": "mocha --reporter spec"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/TooTallNate/node-pac-resolver.git"
-  },
-  "keywords": [
-    "pac",
-    "file",
-    "proxy",
-    "resolve",
-    "dns"
-  ],
-  "author": "Nathan Rajlich <nathan@tootallnate.net> (http://n8.io/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TooTallNate/node-pac-resolver/issues"
-  }
+	"name": "pac-resolver",
+	"version": "1.2.6",
+	"description": "Generates an asynchronous resolver function from a PAC file",
+	"main": "index.js",
+	"dependencies": {
+		"co": "~4.6.0",
+		"netmask": "~1.0.5",
+		"degenerator": "~1.0.2"
+	},
+	"devDependencies": {
+		"mocha": "~2.4.5",
+		"chai": "~3.5.0",
+		"chai-as-promised": "~5.2.0",
+		"xo": "*",
+    "nyc": "^5.0.1"
+	},
+	"scripts": {
+		"test": "xo && nyc mocha"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/TooTallNate/node-pac-resolver.git"
+	},
+	"keywords": [
+		"pac",
+		"file",
+		"proxy",
+		"resolve",
+		"dns"
+	],
+	"author": "Nathan Rajlich <nathan@tootallnate.net> (http://n8.io/)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/TooTallNate/node-pac-resolver/issues"
+	},
+	"xo": {
+		"esnext": true,
+		"rules": {
+			"no-undef": 1,
+      "new-cap": 1,
+      "no-unused-vars": 1
+		}
+	}
 }

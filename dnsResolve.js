@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var dns = require('dns');
+const dns = require('dns');
 
 /**
  * Resolves the given DNS hostname into an IP address, and returns it in the dot
@@ -20,16 +20,16 @@ var dns = require('dns');
  */
 
 function dnsResolve(host) {
-    'use strict';
-    var family = 4;
-    return new Promise(function (resolve, reject) {
-        dns.lookup(host, family, function (err, ip) {
-            if (err) {
-                reject(err);
-            }
-            resolve(ip || '127.0.0.1');
-        });
-    });
+	'use strict';
+	const family = 4;
+	return new Promise((resolve, reject) => {
+		dns.lookup(host, family, (err, ip) => {
+			if (err) {
+				reject(err);
+			}
+			resolve(ip || '127.0.0.1');
+		});
+	});
 }
 
 dnsResolve.async = true;

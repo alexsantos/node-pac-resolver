@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-var dns = require('dns');
-var Netmask = require('netmask').Netmask;
+const dns = require('dns');
+const Netmask = require('netmask').Netmask;
 
 /**
  * True iff the IP address of the host matches the specified IP address pattern.
@@ -27,32 +27,24 @@ var Netmask = require('netmask').Netmask;
  *   IP address should be matched against. 0 means ignore, 255 means match.
  * @return {Boolean}
  */
-/*
-function isInNet (host, pattern, mask, fn) {
-  var family = 4;
-  dns.lookup(host, family, function (err, ip) {
-    if (err) return fn(err);
-    if (!ip) ip = '127.0.0.1';
-    var netmask = new Netmask(pattern, mask);
-    fn(null, netmask.contains(ip));
-  });
-}
-*/
+
 function isInNet(host, pattern, mask) {
-    'use strict';
-    var family = 4;
-    return new Promise(function (resolve, reject) {
-        dns.lookup(host, family, function (err, ip) {
-            if (err) {
-                reject(err);
-            }
-            if (!ip) {
-                ip = '127.0.0.1';
-            }
-            var netmask = new Netmask(pattern, mask);
-            resolve(netmask.contains(ip));
-        });
-    });
+	'use strict';
+	const options = {
+		family: 4
+	};
+	return new Promise(resolve => {
+		dns.lookup(host, options, (err, ip) => {
+			if (err) {
+				resolve(err.code);
+			}
+			if (!ip) {
+				ip = '127.0.0.1';
+			}
+			const netmask = new Netmask(pattern, mask);
+			resolve(netmask.contains(ip));
+		});
+	});
 }
 
 isInNet.async = true;

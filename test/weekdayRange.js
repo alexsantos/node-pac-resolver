@@ -2,18 +2,17 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
-var weekdayRange = require('../weekdayRange');
+const assert = require('assert');
+const weekdayRange = require('../weekdayRange');
 
-describe('weekdayRange(wd1, wd2, gmt)', function () {
-    'use strict';
-    var tests = [];
+describe('weekdayRange(wd1, wd2, gmt)', () => {
+	'use strict';
+	const tests = [];
 
-    tests.forEach(function (test) {
-        var expected = test.pop();
-        it('should return `' + expected + '` for "' + test.join('", "') + '"', function () {
-            assert.equal(expected, weekdayRange(test[0], test[1], test[2]));
-        });
-    });
-
+	tests.forEach(test => {
+		const expected = test.pop();
+		it(`should return "${expected}" for "${test.join('", "')}"`, () => {
+			assert.equal(expected, weekdayRange(test[0], test[1], test[2]));
+		});
+	});
 });

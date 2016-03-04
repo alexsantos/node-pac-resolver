@@ -16,13 +16,13 @@
  */
 
 function dnsDomainLevels(host) {
-    'use strict';
-    var match = String(host).match(/\./g);
-    var levels = 0;
-    if (match) {
-        levels = match.length;
-    }
-    return levels;
+	'use strict';
+	const match = String(host).match(/\./g);
+	let levels = 0;
+	if (match) {
+		levels = match.length;
+	}
+	return levels;
 }
 
 /**

@@ -2,26 +2,26 @@
  * Module dependencies.
  */
 
-var co = require('co');
-var vm = require('vm');
-var degenerator = require('degenerator');
+const co = require('co');
+const vm = require('vm');
+const degenerator = require('degenerator');
 
 /**
  * Built-in PAC functions.
  */
 
-var dateRange = require('./dateRange');
-var dnsDomainIs = require('./dnsDomainIs');
-var dnsDomainLevels = require('./dnsDomainLevels');
-var dnsResolve = require('./dnsResolve');
-var isInNet = require('./isInNet');
-var isPlainHostName = require('./isPlainHostName');
-var isResolvable = require('./isResolvable');
-var localHostOrDomainIs = require('./localHostOrDomainIs');
-var myIpAddress = require('./myIpAddress');
-var shExpMatch = require('./shExpMatch');
-var timeRange = require('./timeRange');
-var weekdayRange = require('./weekdayRange');
+const dateRange = require('./dateRange');
+const dnsDomainIs = require('./dnsDomainIs');
+const dnsDomainLevels = require('./dnsDomainLevels');
+const dnsResolve = require('./dnsResolve');
+const isInNet = require('./isInNet');
+const isPlainHostName = require('./isPlainHostName');
+const isResolvable = require('./isResolvable');
+const localHostOrDomainIs = require('./localHostOrDomainIs');
+const myIpAddress = require('./myIpAddress');
+const shExpMatch = require('./shExpMatch');
+const timeRange = require('./timeRange');
+const weekdayRange = require('./weekdayRange');
 
 /**
  * Returns an asyncronous `FindProxyForURL` function from the
@@ -33,54 +33,54 @@ var weekdayRange = require('./weekdayRange');
  */
 
 function generate(str, opts) {
-    'use strict';
-    // the sandbox to use for the vm
-    var sandbox = {
-        dateRange: dateRange,
-        dnsDomainIs: dnsDomainIs,
-        dnsDomainLevels: dnsDomainLevels,
-        dnsResolve: dnsResolve,
-        isInNet: isInNet,
-        isPlainHostName: isPlainHostName,
-        isResolvable: isResolvable,
-        localHostOrDomainIs: localHostOrDomainIs,
-        myIpAddress: myIpAddress,
-        shExpMatch: shExpMatch,
-        timeRange: timeRange,
-        weekdayRange: weekdayRange
-    };
+	'use strict';
+	// the sandbox to use for the vm
+	const sandbox = {
+		dateRange,
+		dnsDomainIs,
+		dnsDomainLevels,
+		dnsResolve,
+		isInNet,
+		isPlainHostName,
+		isResolvable,
+		localHostOrDomainIs,
+		myIpAddress,
+		shExpMatch,
+		timeRange,
+		weekdayRange
+	};
 
-    // copy the properties from the user-provided `sandbox` onto ours
-    if (opts && opts.sandbox) {
-        Object.keys.forEach(function (key) {
-            sandbox[key] = opts.sandbox[key];
-        });
-    }
+	// copy the properties from the user-provided `sandbox` onto ours
+	if (opts && opts.sandbox) {
+		Object.keys.forEach(key => {
+			sandbox[key] = opts.sandbox[key];
+		});
+	}
 
-    // construct the array of async function names to add `yield` calls to.
-    // user-provided async functions added to the `sandbox` must have an
-    // `async = true` property set on the function instance
-    var names = [];
-    Object.keys(sandbox).forEach(function (key) {
-        if (sandbox[key].async) {
-            names.push(key);
-        }
-    });
-    // console.log(names);
+	// construct the array of async function names to add `yield` calls to.
+	// user-provided async functions added to the `sandbox` must have an
+	// `async = true` property set on the function instance
+	const names = [];
+	Object.keys(sandbox).forEach(key => {
+		if (sandbox[key].async) {
+			names.push(key);
+		}
+	});
+	// console.log(names);
 
-    // convert the JS FindProxyForURL function into a generator function
-    var js = degenerator(str, names);
+	// convert the JS FindProxyForURL function into a generator function
+	const js = degenerator(str, names);
 
-    // filename of the pac file for the vm
-    var filename = (opts && opts.filename) ? opts.filename : 'proxy.pac';
+	// filename of the pac file for the vm
+	const filename = (opts && opts.filename) ? opts.filename : 'proxy.pac';
 
-    // evaluate the JS string and extract the FindProxyForURL generator function
-    var FindProxyForURL = vm.runInNewContext(js + ';FindProxyForURL', sandbox, filename);
-    if ('function' !== typeof FindProxyForURL) {
-        throw new TypeError('PAC file JavaScript contents must define a `FindProxyForURL` function');
-    }
+	// evaluate the JS string and extract the FindProxyForURL generator function
+	const FindProxyForURL = vm.runInNewContext(`${js};FindProxyForURL`, sandbox, filename);
+	if (typeof FindProxyForURL !== 'function') {
+		throw new TypeError('PAC file JavaScript contents must define a `FindProxyForURL` function');
+	}
 
-    return co.wrap(FindProxyForURL);
+	return co.wrap(FindProxyForURL);
 }
 
 /**

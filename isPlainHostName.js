@@ -16,8 +16,8 @@
  */
 
 function isPlainHostName(host) {
-    'use strict';
-    return !(/\./.test(host));
+	'use strict';
+	return !(/\./.test(host));
 }
 
 /**
