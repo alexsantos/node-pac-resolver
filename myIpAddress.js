@@ -24,7 +24,7 @@ function myIpAddress() {
 	// 8.8.8.8:53 is "Google Public DNS":
 	// https://developers.google.com/speed/public-dns/
 	const socket = net.connect({
-		host: '192.168.1.2',
+		host: '8.8.8.8',
 		port: 53
 	});
 	return new Promise((resolve, reject) => {
