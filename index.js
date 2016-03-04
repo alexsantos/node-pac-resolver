@@ -49,10 +49,12 @@ function generate(str, opts) {
 		timeRange,
 		weekdayRange
 	};
-
+	if (!str || !str.match('^function FindProxyForURL.*')) {
+		throw new TypeError('PAC file JavaScript contents must define a `FindProxyForURL` function');
+	}
 	// copy the properties from the user-provided `sandbox` onto ours
 	if (opts && opts.sandbox) {
-		Object.keys.forEach(key => {
+		Object.keys(opts.sandbox).forEach(key => {
 			sandbox[key] = opts.sandbox[key];
 		});
 	}
@@ -76,9 +78,6 @@ function generate(str, opts) {
 
 	// evaluate the JS string and extract the FindProxyForURL generator function
 	const FindProxyForURL = vm.runInNewContext(`${js};FindProxyForURL`, sandbox, filename);
-	if (typeof FindProxyForURL !== 'function') {
-		throw new TypeError('PAC file JavaScript contents must define a `FindProxyForURL` function');
-	}
 
 	return co.wrap(FindProxyForURL);
 }

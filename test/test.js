@@ -10,11 +10,31 @@ chai.use(chaiAsPromised);
 
 describe('FindProxyForURL', () => {
 	'use strict';
+	it('should return `TypeError` on empty string', done => {
+		try {
+			const FindProxyForURL = pac();
+		} catch (err) {
+			err.message.should.be.equal('PAC file JavaScript contents must define a \`FindProxyForURL\` function');
+			done();
+		}
+	});
+
 	it('should return `undefined` by default', done => {
 		const FindProxyForURL = pac(
 			'function FindProxyForURL (url, host) {' +
 			'  /* noop */' +
 			'}'
+		);
+		FindProxyForURL('http://foo.com/', 'foo.com').should.become(undefined).and.notify(done);
+	});
+
+	it('should return `undefined` by default passing options object', done => {
+		const opts = {};
+		opts.sandbox = {filename: 'proxy.pac'};
+		const FindProxyForURL = pac(
+			'function FindProxyForURL (url, host) {' +
+			'  /* noop */' +
+			'}', opts
 		);
 		FindProxyForURL('http://foo.com/', 'foo.com').should.become(undefined).and.notify(done);
 	});

@@ -7,7 +7,9 @@ const weekdayRange = require('../weekdayRange');
 
 describe('weekdayRange(wd1, wd2, gmt)', () => {
 	'use strict';
-	const tests = [];
+	const tests = [
+		[0, 0, 0]
+	];
 
 	tests.forEach(test => {
 		const expected = test.pop();
